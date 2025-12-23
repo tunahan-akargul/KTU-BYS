@@ -1,3 +1,12 @@
+<script setup lang="ts">
+import type { InfoItem } from '@/types/profile'
+
+defineProps<{
+  title: string
+  items: InfoItem[]
+}>()
+</script>
+
 <template>
   <v-card class="info-table-card">
     <v-card-title class="d-flex align-center pa-4">
@@ -32,15 +41,6 @@
     </v-table>
   </v-card>
 </template>
-
-<script setup lang="ts">
-import type { InfoItem } from '@/types/profile'
-
-defineProps<{
-  title: string
-  items: InfoItem[]
-}>()
-</script>
 
 <style scoped>
 .info-table-card {

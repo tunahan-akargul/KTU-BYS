@@ -1,3 +1,47 @@
+<script setup lang="ts">
+import { computed } from 'vue'
+import { useStudentStore } from '@/stores/studentStore'
+import StudentProfileCard from '@/components/profile/StudentProfileCard.vue'
+import AnnouncementCard from '@/components/announcements/AnnouncementCard.vue'
+import QuickActionCard from '@/components/common/QuickActionCard.vue'
+
+const studentStore = useStudentStore()
+
+const formattedDate = computed(() => {
+  return new Date().toLocaleDateString('tr-TR', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  })
+})
+
+const feeStatusColor = computed(() => {
+  switch (studentStore.student.feeStatus) {
+    case 'paid': return 'success'
+    case 'pending': return 'warning'
+    case 'overdue': return 'error'
+    default: return 'grey'
+  }
+})
+
+const feeStatusText = computed(() => {
+  switch (studentStore.student.feeStatus) {
+    case 'paid': return 'Ödendi'
+    case 'pending': return 'Bekliyor'
+    case 'overdue': return 'Gecikmiş'
+    default: return 'Bilinmiyor'
+  }
+})
+
+const quickActions = [
+  { title: 'Ders Kayıt', subtitle: 'Ders kaydı yap', icon: 'mdi-book-plus', color: '#1565C0', to: '/courses' },
+  { title: 'Transkript', subtitle: 'Notlarını gör', icon: 'mdi-file-document', color: '#00897B', to: '/transcript' },
+  { title: 'Harç Öde', subtitle: 'Harç ödeme', icon: 'mdi-wallet', color: '#F4511E', to: '/fees' },
+  { title: 'Danışman', subtitle: 'İletişime geç', icon: 'mdi-account-tie', color: '#7B1FA2', to: '/advisor' },
+]
+</script>
+
 <template>
   <div class="dashboard">
     <!-- Welcome Section -->
@@ -14,11 +58,7 @@
               </p>
             </div>
             <div class="d-none d-md-block">
-              <v-img
-                src="https://img.icons8.com/3d-fluency/188/student-male--v2.png"
-                width="100"
-                height="100"
-              />
+              <v-img src="https://img.icons8.com/3d-fluency/188/student-male--v2.png" width="100" height="100" />
             </div>
           </div>
         </v-card>
@@ -103,12 +143,12 @@
         <!-- Announcements -->
         <div class="d-flex align-center justify-space-between mb-4">
           <h2 class="text-h6 font-weight-bold">Duyurular</h2>
-          <v-btn variant="text" color="primary" size="small">
+          <v-btn variant="text" color="primary" size="small" to="/announcements">
             Tümünü Gör
             <v-icon end size="16">mdi-arrow-right</v-icon>
           </v-btn>
         </div>
-        
+
         <v-row>
           <v-col cols="12" sm="6" v-for="announcement in studentStore.announcements.slice(0, 4)" :key="announcement.id">
             <AnnouncementCard :announcement="announcement" />
@@ -118,50 +158,6 @@
     </v-row>
   </div>
 </template>
-
-<script setup lang="ts">
-import { computed } from 'vue'
-import { useStudentStore } from '@/stores/studentStore'
-import StudentProfileCard from '@/components/profile/StudentProfileCard.vue'
-import AnnouncementCard from '@/components/announcements/AnnouncementCard.vue'
-import QuickActionCard from '@/components/common/QuickActionCard.vue'
-
-const studentStore = useStudentStore()
-
-const formattedDate = computed(() => {
-  return new Date().toLocaleDateString('tr-TR', {
-    weekday: 'long',
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  })
-})
-
-const feeStatusColor = computed(() => {
-  switch (studentStore.student.feeStatus) {
-    case 'paid': return 'success'
-    case 'pending': return 'warning'
-    case 'overdue': return 'error'
-    default: return 'grey'
-  }
-})
-
-const feeStatusText = computed(() => {
-  switch (studentStore.student.feeStatus) {
-    case 'paid': return 'Ödendi'
-    case 'pending': return 'Bekliyor'
-    case 'overdue': return 'Gecikmiş'
-    default: return 'Bilinmiyor'
-  }
-})
-
-const quickActions = [
-  { title: 'Ders Kayıt', subtitle: 'Ders kaydı yap', icon: 'mdi-book-plus', color: '#1565C0', to: '/courses' },
-  { title: 'Transkript', subtitle: 'Notlarını gör', icon: 'mdi-file-document', color: '#00897B', to: '/transcript' },
-  { title: 'Harç Öde', subtitle: 'Harç ödeme', icon: 'mdi-wallet', color: '#F4511E', to: '/fees' },
-  { title: 'Danışman', subtitle: 'İletişime geç', icon: 'mdi-account-tie', color: '#7B1FA2', to: '/advisor' },
-]
-</script>
 
 <style scoped>
 .welcome-card {

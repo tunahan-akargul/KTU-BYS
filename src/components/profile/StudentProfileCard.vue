@@ -1,9 +1,38 @@
+<script setup lang="ts">
+import { computed } from 'vue'
+import type { Student } from '@/types'
+
+const props = defineProps<{
+  student: Student
+}>()
+
+const statusColor = computed(() => {
+  switch (props.student.status) {
+    case 'active': return 'success'
+    case 'passive': return 'warning'
+    case 'graduated': return 'info'
+    case 'suspended': return 'error'
+    default: return 'grey'
+  }
+})
+
+const statusText = computed(() => {
+  switch (props.student.status) {
+    case 'active': return 'Aktif Öğrenci'
+    case 'passive': return 'Pasif'
+    case 'graduated': return 'Mezun'
+    case 'suspended': return 'Kayıt Dondurulmuş'
+    default: return 'Bilinmiyor'
+  }
+})
+</script>
+
 <template>
   <v-card class="profile-card overflow-hidden">
     <div class="card-header">
       <div class="header-pattern" />
     </div>
-    
+
     <div class="card-body">
       <v-avatar size="100" class="avatar-wrapper">
         <v-img v-if="student.photoUrl" :src="student.photoUrl" />
@@ -15,7 +44,7 @@
       <div class="student-info text-center mt-3">
         <h2 class="text-h5 font-weight-bold">{{ student.firstName }} {{ student.lastName }}</h2>
         <p class="text-body-2 text-medium-emphasis mb-2">{{ student.studentNumber }}</p>
-        
+
         <v-chip :color="statusColor" size="small" class="mb-3">
           <v-icon start size="small">mdi-circle</v-icon>
           {{ statusText }}
@@ -58,35 +87,6 @@
     </v-card-actions>
   </v-card>
 </template>
-
-<script setup lang="ts">
-import { computed } from 'vue'
-import type { Student } from '@/types'
-
-const props = defineProps<{
-  student: Student
-}>()
-
-const statusColor = computed(() => {
-  switch (props.student.status) {
-    case 'active': return 'success'
-    case 'passive': return 'warning'
-    case 'graduated': return 'info'
-    case 'suspended': return 'error'
-    default: return 'grey'
-  }
-})
-
-const statusText = computed(() => {
-  switch (props.student.status) {
-    case 'active': return 'Aktif Öğrenci'
-    case 'passive': return 'Pasif'
-    case 'graduated': return 'Mezun'
-    case 'suspended': return 'Kayıt Dondurulmuş'
-    default: return 'Bilinmiyor'
-  }
-})
-</script>
 
 <style scoped>
 .profile-card {

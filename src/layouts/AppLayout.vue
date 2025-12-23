@@ -1,3 +1,11 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import AppNavigation from '@/components/common/AppNavigation.vue'
+import AppBar from '@/components/common/AppBar.vue'
+
+const drawer = ref(true)
+</script>
+
 <template>
   <v-app>
     <AppNavigation v-model="drawer" />
@@ -13,14 +21,6 @@
     </v-main>
   </v-app>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-import AppNavigation from '@/components/common/AppNavigation.vue'
-import AppBar from '@/components/common/AppBar.vue'
-
-const drawer = ref(true)
-</script>
 
 <style scoped>
 .main-content {

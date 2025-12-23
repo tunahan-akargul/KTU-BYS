@@ -72,7 +72,7 @@ const rail = ref(false)
 .logo-icon {
   width: 48px;
   height: 48px;
-  background: linear-gradient(135deg, #1565C0 0%, #00BCD4 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #89f1ff 100%);
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -95,8 +95,13 @@ const rail = ref(false)
 
 .nav-child-item {
   border-radius: 8px;
-  margin-left: 8px;
+  margin-left: 0;
+  padding-left: 16px !important;
   font-size: 0.875rem;
+}
+
+:deep(.v-list-group__items) {
+  --indent-padding: 0px !important;
 }
 
 :deep(.v-list-item--active) {

@@ -1,3 +1,37 @@
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+import { useStudentStore } from '@/stores/studentStore'
+
+const studentStore = useStudentStore()
+const search = ref('')
+
+const headers = [
+  { title: 'Ders Kodu', key: 'code' },
+  { title: 'Ders Adı', key: 'name' },
+  { title: 'Kredi', key: 'credits' },
+  { title: 'Öğretim Üyesi', key: 'instructor' },
+  { title: 'Harf Notu', key: 'grade' },
+  { title: 'Puan', key: 'points' },
+]
+
+const completedCourses = computed(() =>
+  studentStore.courses.filter(c => c.status === 'completed')
+)
+
+const remainingCredits = computed(() =>
+  studentStore.student.totalCredits - studentStore.student.completedCredits
+)
+
+function getGradeColor(grade?: string) {
+  if (!grade) return 'grey'
+  if (grade.startsWith('A')) return 'success'
+  if (grade.startsWith('B')) return 'info'
+  if (grade.startsWith('C')) return 'warning'
+  if (grade.startsWith('D')) return 'orange'
+  return 'error'
+}
+</script>
+
 <template>
   <div class="transcript-page">
     <!-- Header Card -->
@@ -30,13 +64,8 @@
             {{ studentStore.student.gpa.toFixed(2) }}
           </div>
           <div class="text-body-2 text-medium-emphasis">Genel Not Ortalaması</div>
-          <v-progress-linear
-            :model-value="(studentStore.student.gpa / 4) * 100"
-            color="primary"
-            height="6"
-            rounded
-            class="mt-3"
-          />
+          <v-progress-linear :model-value="(studentStore.student.gpa / 4) * 100" color="primary" height="6" rounded
+            class="mt-3" />
         </v-card>
       </v-col>
       <v-col cols="12" sm="6" md="3">
@@ -69,24 +98,11 @@
     <v-card rounded="lg">
       <v-card-title class="d-flex align-center justify-space-between">
         <span>Ders Geçmişi</span>
-        <v-text-field
-          v-model="search"
-          prepend-inner-icon="mdi-magnify"
-          label="Ders Ara"
-          single-line
-          hide-details
-          density="compact"
-          variant="outlined"
-          style="max-width: 250px"
-        />
+        <v-text-field v-model="search" prepend-inner-icon="mdi-magnify" label="Ders Ara" single-line hide-details
+          density="compact" variant="outlined" style="max-width: 250px" />
       </v-card-title>
 
-      <v-data-table
-        :headers="headers"
-        :items="completedCourses"
-        :search="search"
-        class="transcript-table"
-      >
+      <v-data-table :headers="headers" :items="completedCourses" :search="search" class="transcript-table">
         <template #item.code="{ item }">
           <v-chip size="small" color="primary" variant="flat">
             {{ item.code }}
@@ -118,40 +134,6 @@
     </v-card>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ref, computed } from 'vue'
-import { useStudentStore } from '@/stores/studentStore'
-
-const studentStore = useStudentStore()
-const search = ref('')
-
-const headers = [
-  { title: 'Ders Kodu', key: 'code' },
-  { title: 'Ders Adı', key: 'name' },
-  { title: 'Kredi', key: 'credits' },
-  { title: 'Öğretim Üyesi', key: 'instructor' },
-  { title: 'Harf Notu', key: 'grade' },
-  { title: 'Puan', key: 'points' },
-]
-
-const completedCourses = computed(() => 
-  studentStore.courses.filter(c => c.status === 'completed')
-)
-
-const remainingCredits = computed(() => 
-  studentStore.student.totalCredits - studentStore.student.completedCredits
-)
-
-function getGradeColor(grade?: string) {
-  if (!grade) return 'grey'
-  if (grade.startsWith('A')) return 'success'
-  if (grade.startsWith('B')) return 'info'
-  if (grade.startsWith('C')) return 'warning'
-  if (grade.startsWith('D')) return 'orange'
-  return 'error'
-}
-</script>
 
 <style scoped>
 .stat-card {

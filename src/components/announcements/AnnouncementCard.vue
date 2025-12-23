@@ -1,47 +1,3 @@
-<template>
-  <v-card class="announcement-card" :class="{ 'important': announcement.isImportant }">
-    <div class="card-accent" :style="{ background: categoryGradient }" />
-    
-    <v-card-item>
-      <template #prepend>
-        <v-avatar :color="categoryColor" size="40">
-          <v-icon color="white" size="20">{{ categoryIcon }}</v-icon>
-        </v-avatar>
-      </template>
-
-      <v-card-title class="text-body-1 font-weight-bold">
-        {{ announcement.title }}
-        <v-icon v-if="announcement.isImportant" color="warning" size="18" class="ml-1">
-          mdi-alert-circle
-        </v-icon>
-      </v-card-title>
-
-      <v-card-subtitle>
-        <v-icon size="14" class="mr-1">mdi-calendar</v-icon>
-        {{ formattedDate }}
-      </v-card-subtitle>
-    </v-card-item>
-
-    <v-card-text class="text-body-2 text-medium-emphasis pt-0">
-      {{ announcement.content }}
-    </v-card-text>
-
-    <v-card-actions v-if="announcement.link">
-      <v-spacer />
-      <v-btn 
-        variant="text" 
-        color="primary" 
-        size="small"
-        :href="announcement.link" 
-        target="_blank"
-      >
-        Detaylar
-        <v-icon end size="16">mdi-arrow-right</v-icon>
-      </v-btn>
-    </v-card-actions>
-  </v-card>
-</template>
-
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { Announcement } from '@/types'
@@ -89,6 +45,44 @@ const formattedDate = computed(() => {
   })
 })
 </script>
+
+<template>
+  <v-card class="announcement-card" :class="{ 'important': announcement.isImportant }">
+    <div class="card-accent" :style="{ background: categoryGradient }" />
+
+    <v-card-item>
+      <template #prepend>
+        <v-avatar :color="categoryColor" size="40">
+          <v-icon color="white" size="20">{{ categoryIcon }}</v-icon>
+        </v-avatar>
+      </template>
+
+      <v-card-title class="text-body-1 font-weight-bold">
+        {{ announcement.title }}
+        <v-icon v-if="announcement.isImportant" color="warning" size="18" class="ml-1">
+          mdi-alert-circle
+        </v-icon>
+      </v-card-title>
+
+      <v-card-subtitle>
+        <v-icon size="14" class="mr-1">mdi-calendar</v-icon>
+        {{ formattedDate }}
+      </v-card-subtitle>
+    </v-card-item>
+
+    <v-card-text class="text-body-2 text-medium-emphasis pt-0">
+      {{ announcement.content }}
+    </v-card-text>
+
+    <v-card-actions v-if="announcement.link">
+      <v-spacer />
+      <v-btn variant="text" color="primary" size="small" :href="announcement.link" target="_blank">
+        Detaylar
+        <v-icon end size="16">mdi-arrow-right</v-icon>
+      </v-btn>
+    </v-card-actions>
+  </v-card>
+</template>
 
 <style scoped>
 .announcement-card {

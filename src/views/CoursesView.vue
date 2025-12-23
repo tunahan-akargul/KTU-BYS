@@ -1,3 +1,28 @@
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+import { useStudentStore } from '@/stores/studentStore'
+
+const studentStore = useStudentStore()
+const tab = ref('active')
+
+const activeCourses = computed(() =>
+  studentStore.courses.filter(c => c.status === 'active')
+)
+
+const completedCourses = computed(() =>
+  studentStore.courses.filter(c => c.status === 'completed')
+)
+
+function getGradeColor(grade?: string) {
+  if (!grade) return 'grey'
+  if (grade.startsWith('A')) return 'success'
+  if (grade.startsWith('B')) return 'info'
+  if (grade.startsWith('C')) return 'warning'
+  if (grade.startsWith('D')) return 'orange'
+  return 'error'
+}
+</script>
+
 <template>
   <div class="courses-page">
     <v-card class="mb-6">
@@ -41,9 +66,9 @@
                   </v-chip>
                 </div>
               </div>
-              
+
               <v-divider />
-              
+
               <v-card-text>
                 <div class="d-flex align-center mb-2">
                   <v-icon size="18" class="mr-2" color="primary">mdi-account-tie</v-icon>
@@ -54,7 +79,7 @@
                   <span class="text-body-2">{{ course.schedule }}</span>
                 </div>
               </v-card-text>
-              
+
               <v-card-actions>
                 <v-btn variant="text" color="primary" size="small">
                   Detaylar
@@ -115,31 +140,6 @@
     </v-window>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ref, computed } from 'vue'
-import { useStudentStore } from '@/stores/studentStore'
-
-const studentStore = useStudentStore()
-const tab = ref('active')
-
-const activeCourses = computed(() => 
-  studentStore.courses.filter(c => c.status === 'active')
-)
-
-const completedCourses = computed(() => 
-  studentStore.courses.filter(c => c.status === 'completed')
-)
-
-function getGradeColor(grade?: string) {
-  if (!grade) return 'grey'
-  if (grade.startsWith('A')) return 'success'
-  if (grade.startsWith('B')) return 'info'
-  if (grade.startsWith('C')) return 'warning'
-  if (grade.startsWith('D')) return 'orange'
-  return 'error'
-}
-</script>
 
 <style scoped>
 .course-card {

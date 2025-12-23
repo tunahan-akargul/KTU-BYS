@@ -1,21 +1,3 @@
-<template>
-    <div class="profile-page">
-        <v-row>
-            <!-- Left Column - Profile Card -->
-            <v-col cols="12" md="4">
-                <StudentProfileCard :student="studentStore.student" />
-            </v-col>
-
-            <!-- Right Column - Info Tables -->
-            <v-col cols="12" md="8">
-                <StudentInfoTable title="Kişisel Bilgiler" :items="personalInfo" class="mb-6" />
-                <StudentInfoTable title="İletişim Bilgileri" :items="contactInfo" class="mb-6" />
-                <StudentInfoTable title="Akademik Bilgiler" :items="academicInfo" />
-            </v-col>
-        </v-row>
-    </div>
-</template>
-
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useStudentStore } from '@/stores/studentStore'
@@ -43,11 +25,29 @@ const academicInfo = computed<InfoItem[]>(() => [
     { label: 'Fakülte', value: studentStore.student.faculty, icon: 'mdi-domain' },
     { label: 'Bölüm', value: studentStore.student.department, icon: 'mdi-book-education' },
     { label: 'Program', value: studentStore.student.program, icon: 'mdi-certificate' },
-    { label: 'Danışman', value: studentStore.student.advisor, icon: 'mdi-account-tie', type: 'link', href: '#' },
+    { label: 'Danışman', value: studentStore.student.advisor, icon: 'mdi-account-tie', type: 'link', href: 'https://avesis.ktu.edu.tr/oozyurt' },
     { label: 'Genel Not Ortalaması', value: studentStore.student.gpa.toFixed(2), icon: 'mdi-chart-line' },
     { label: 'Harç Durumu', value: 'Harç ödemeniz gerekmektedir', icon: 'mdi-currency-try', type: 'chip', chipColor: 'warning' },
 ])
 </script>
+
+<template>
+    <div class="profile-page">
+        <v-row>
+            <!-- Left Column - Profile Card -->
+            <v-col cols="12" md="4">
+                <StudentProfileCard :student="studentStore.student" />
+            </v-col>
+
+            <!-- Right Column - Info Tables -->
+            <v-col cols="12" md="8">
+                <StudentInfoTable title="Kişisel Bilgiler" :items="personalInfo" class="mb-6" />
+                <StudentInfoTable title="İletişim Bilgileri" :items="contactInfo" class="mb-6" />
+                <StudentInfoTable title="Akademik Bilgiler" :items="academicInfo" />
+            </v-col>
+        </v-row>
+    </div>
+</template>
 
 <style scoped>
 .profile-page {

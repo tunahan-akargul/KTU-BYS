@@ -1,25 +1,3 @@
-<template>
-  <v-card class="quick-action-card" :to="to" :href="href" :target="href ? '_blank' : undefined">
-    <div class="card-icon-wrapper" :style="{ background: gradientStyle }">
-      <v-icon :icon="icon" size="28" color="white" />
-    </div>
-    
-    <v-card-item class="pt-6">
-      <v-card-title class="text-body-1 font-weight-bold">
-        {{ title }}
-      </v-card-title>
-      <v-card-subtitle class="text-caption">
-        {{ subtitle }}
-      </v-card-subtitle>
-    </v-card-item>
-
-    <v-card-actions class="pt-0">
-      <v-spacer />
-      <v-icon color="primary" size="20">mdi-arrow-right</v-icon>
-    </v-card-actions>
-  </v-card>
-</template>
-
 <script setup lang="ts">
 import { computed } from 'vue'
 
@@ -51,6 +29,28 @@ function lightenColor(color: string, percent: number): string {
   ).toString(16).slice(1)
 }
 </script>
+
+<template>
+  <v-card class="quick-action-card" :to="to" :href="href" :target="href ? '_blank' : undefined">
+    <div class="card-icon-wrapper" :style="{ background: gradientStyle }">
+      <v-icon :icon="icon" size="28" color="white" />
+    </div>
+
+    <v-card-item class="pt-6">
+      <v-card-title class="text-body-1 font-weight-bold">
+        {{ title }}
+      </v-card-title>
+      <v-card-subtitle class="text-caption">
+        {{ subtitle }}
+      </v-card-subtitle>
+    </v-card-item>
+
+    <v-card-actions class="pt-0">
+      <v-spacer />
+      <v-icon color="primary" size="20">mdi-arrow-right</v-icon>
+    </v-card-actions>
+  </v-card>
+</template>
 
 <style scoped>
 .quick-action-card {
