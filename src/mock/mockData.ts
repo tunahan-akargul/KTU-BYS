@@ -18,7 +18,7 @@ export const mockStudent: Student = {
     status: 'active',
     registrationStatus: 'halen kayıtlı öğrencidir',
     advisor: 'Prof. Dr. Özcan ÖZYURT',
-    gpa: 3.42,
+    gpa: 3.29,
     totalCredits: 120,
     completedCredits: 64,
     feeStatus: 'paid',

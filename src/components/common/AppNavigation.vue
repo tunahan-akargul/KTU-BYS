@@ -45,7 +45,8 @@ const rail = ref(false)
         </v-list-group>
 
         <!-- Items without children -->
-        <v-list-item v-else :to="item.to" :prepend-icon="item.icon" :title="item.title" class="nav-item" />
+        <v-list-item v-else :to="item.to" :href="item.href" :prepend-icon="item.icon" :title="item.title"
+          class="nav-item" />
       </template>
     </v-list>
 
@@ -95,13 +96,18 @@ const rail = ref(false)
 
 .nav-child-item {
   border-radius: 8px;
-  margin-left: 0;
-  padding-left: 16px !important;
+  margin-left: 0 !important;
+  padding-left: 8px !important;
   font-size: 0.875rem;
 }
 
 :deep(.v-list-group__items) {
   --indent-padding: 0px !important;
+  padding-left: 0 !important;
+}
+
+:deep(.v-list-group__items .v-list-item) {
+  padding-inline-start: 25px !important;
 }
 
 :deep(.v-list-item--active) {

@@ -6,9 +6,9 @@ const timeSlots = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00'
 
 function getCourseAtTime(day: string, time: string) {
     return mockCourseSchedule.find(course => {
-        const startHour = parseInt(course.startTime.split(':')[0])
-        const endHour = parseInt(course.endTime.split(':')[0])
-        const currentHour = parseInt(time.split(':')[0])
+        const startHour = parseInt(course.startTime.split(':')[0] || '0')
+        const endHour = parseInt(course.endTime.split(':')[0] || '0')
+        const currentHour = parseInt(time.split(':')[0] || '0')
         return course.day === day && currentHour >= startHour && currentHour < endHour
     })
 }

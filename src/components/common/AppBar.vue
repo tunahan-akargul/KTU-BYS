@@ -62,11 +62,8 @@ const currentPageTitle = computed(() => {
         <v-list-item prepend-icon="mdi-account" to="/profile">
           <v-list-item-title>Profilim</v-list-item-title>
         </v-list-item>
-        <v-list-item prepend-icon="mdi-cog">
-          <v-list-item-title>Ayarlar</v-list-item-title>
-        </v-list-item>
         <v-divider class="my-1" />
-        <v-list-item prepend-icon="mdi-logout" class="text-error">
+        <v-list-item prepend-icon="mdi-logout" class="text-error" href="https://bys.ktu.edu.tr/bys.aspx">
           <v-list-item-title>Çıkış Yap</v-list-item-title>
         </v-list-item>
       </v-list>
