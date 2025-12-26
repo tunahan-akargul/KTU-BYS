@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useDisplay } from 'vuetify'
 import { mockCafeteriaMenu } from '@/mock/mockData'
+
+const { mdAndDown } = useDisplay()
 
 const activeDay = ref(new Date().toLocaleDateString('tr-TR', { weekday: 'long' }))
 
@@ -11,15 +14,15 @@ if (!mockCafeteriaMenu.find(m => m.day === activeDay.value)) {
 </script>
 
 <template>
-    <v-container fluid class="cafeteria-page pa-6">
+    <v-container fluid :class="['cafeteria-page', mdAndDown ? 'pa-4' : 'pa-6']">
         <!-- Page Header -->
         <v-row class="mb-6">
             <v-col cols="12">
                 <div class="d-flex align-center">
                     <v-icon size="32" color="success" class="mr-3">mdi-silverware-fork-knife</v-icon>
                     <div>
-                        <h1 class="text-h4 font-weight-bold">Yemekhane</h1>
-                        <p class="text-subtitle-1 text-medium-emphasis mb-0">
+                        <h1 class="text-h5 text-sm-h4 font-weight-bold">Yemekhane</h1>
+                        <p class="text-body-2 text-sm-subtitle-1 text-medium-emphasis mb-0">
                             Haftalık yemek listesi ve kalori bilgileri
                         </p>
                     </div>
@@ -39,8 +42,8 @@ if (!mockCafeteriaMenu.find(m => m.day === activeDay.value)) {
                 <v-row>
                     <v-col cols="12" md="8">
                         <v-card class="menu-card" elevation="0">
-                            <v-card-title class="pa-6 d-flex justify-space-between align-center">
-                                <span class="text-h5 font-weight-bold">{{ menu.day }} Menüsü</span>
+                            <v-card-title class="pa-4 pa-sm-6 d-flex flex-column flex-sm-row justify-space-between align-start align-sm-center">
+                                <span class="text-h6 text-sm-h5 font-weight-bold mb-2 mb-sm-0">{{ menu.day }} Menüsü</span>
                                 <v-chip color="success" variant="tonal">{{ menu.date }}</v-chip>
                             </v-card-title>
                             <v-divider />
@@ -72,10 +75,10 @@ if (!mockCafeteriaMenu.find(m => m.day === activeDay.value)) {
 
                     <v-col cols="12" md="4">
                         <v-card class="nutrition-card text-center pa-8" elevation="0">
-                            <v-avatar color="success" size="80" class="mb-4">
-                                <v-icon color="white" size="40">mdi-fire</v-icon>
+                            <v-avatar color="success" size="60" size-sm="80" class="mb-4">
+                                <v-icon color="white" size="30" size-sm="40">mdi-fire</v-icon>
                             </v-avatar>
-                            <div class="text-h4 font-weight-bold mb-1">{{ menu.calories }}</div>
+                            <div class="text-h5 text-sm-h4 font-weight-bold mb-1">{{ menu.calories }}</div>
                             <div class="text-overline mb-4">Toplam Kalori</div>
                             <p class="text-body-2 text-medium-emphasis">
                                 Bu menü bir yetişkinin günlük enerji ihtiyacının yaklaşık %35'ini karşılamaktadır.
@@ -102,23 +105,25 @@ if (!mockCafeteriaMenu.find(m => m.day === activeDay.value)) {
 
 <style scoped>
 .cafeteria-page {
-    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    background: linear-gradient(135deg, rgba(var(--v-theme-success), 0.05) 0%, rgb(var(--v-theme-background)) 100%);
     min-height: 100vh;
 }
 
 .menu-card {
     border-radius: 20px;
-    border: 1px solid rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(var(--v-theme-success), 0.1);
+    background: rgb(var(--v-theme-surface));
 }
 
 .nutrition-card {
     border-radius: 20px;
-    background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
-    border: 1px solid rgba(34, 197, 94, 0.1);
+    background: linear-gradient(135deg, rgb(var(--v-theme-surface)) 0%, rgba(var(--v-theme-success), 0.05) 100%);
+    border: 1px solid rgba(var(--v-theme-success), 0.1);
 }
 
 .info-card {
     border-radius: 20px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+    background: rgb(var(--v-theme-surface));
 }
 </style>

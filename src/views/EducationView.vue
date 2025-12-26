@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useDisplay } from 'vuetify'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
+const { mdAndDown } = useDisplay()
 
 const currentView = computed(() => {
   const path = route.path
@@ -28,15 +30,15 @@ const courses = [
 </script>
 
 <template>
-  <v-container fluid class="education-page pa-6">
+  <v-container fluid :class="['education-page', mdAndDown ? 'pa-4' : 'pa-6']">
     <!-- Consistent Page Header -->
     <v-row class="mb-6">
       <v-col cols="12">
         <div class="d-flex align-center">
           <v-icon size="32" color="indigo-darken-2" class="mr-3">{{ pageInfo.icon }}</v-icon>
           <div>
-            <h1 class="text-h4 font-weight-bold">{{ pageInfo.title }}</h1>
-            <p class="text-subtitle-1 text-medium-emphasis mb-0">{{ pageInfo.subtitle }}</p>
+            <h1 class="text-h5 text-sm-h4 font-weight-bold">{{ pageInfo.title }}</h1>
+            <p class="text-body-2 text-sm-subtitle-1 text-medium-emphasis mb-0">{{ pageInfo.subtitle }}</p>
           </div>
         </div>
       </v-col>
@@ -87,18 +89,18 @@ const courses = [
 
 <style scoped>
 .education-page {
-  background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%);
+  background: linear-gradient(135deg, rgba(var(--v-theme-primary), 0.1) 0%, rgb(var(--v-theme-background)) 100%);
   min-height: calc(100vh - 64px);
 }
 
 .content-card {
   border-radius: 20px;
-  background: white;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: rgb(var(--v-theme-surface));
+  border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
 }
 
 .inner-card {
   border-radius: 12px;
-  background: #f8fafc;
+  background: rgba(var(--v-theme-on-surface), 0.03);
 }
 </style>

@@ -4,24 +4,28 @@ import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
-const ktuTheme = {
+const light = {
   dark: false,
   colors: {
     primary: '#1565C0',
-    'primary-darken-1': '#0D47A1',
     secondary: '#00ACC1',
-    'secondary-darken-1': '#00838F',
-    accent: '#00BCD4',
-    success: '#4CAF50',
-    warning: '#FF9800',
-    error: '#F44336',
-    info: '#2196F3',
     background: '#F5F7FA',
     surface: '#FFFFFF',
-    'on-primary': '#FFFFFF',
-    'on-secondary': '#FFFFFF',
     'on-background': '#1A1A2E',
     'on-surface': '#1A1A2E',
+  },
+}
+
+const dark = {
+  dark: true,
+  colors: {
+    primary: '#64B5F6',
+    secondary: '#4DD0E1',
+    background: '#0F172A',
+    surface: '#1E293B',
+    'on-background': '#F8FAFC',
+    'on-surface': '#F8FAFC',
+    'surface-variant': '#334155',
   },
 }
 
@@ -29,9 +33,10 @@ export default createVuetify({
   components,
   directives,
   theme: {
-    defaultTheme: 'ktuTheme',
+    defaultTheme: 'light',
     themes: {
-      ktuTheme,
+      light,
+      dark,
     },
   },
   defaults: {

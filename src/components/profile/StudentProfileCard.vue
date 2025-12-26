@@ -84,7 +84,8 @@ const statusText = computed(() => {
 <style scoped>
 .profile-card {
   border-radius: 20px;
-  background: white;
+  background: rgb(var(--v-theme-surface));
+  border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
 }
 
 .card-header {
@@ -108,9 +109,9 @@ const statusText = computed(() => {
 }
 
 .avatar-wrapper {
-  background: linear-gradient(135deg, #1565C0 0%, #00BCD4 100%);
-  border: 4px solid white;
-  box-shadow: 0 4px 20px rgba(21, 101, 192, 0.3);
+  background: linear-gradient(135deg, rgb(var(--v-theme-primary)) 0%, rgb(var(--v-theme-secondary)) 100%);
+  border: 4px solid rgb(var(--v-theme-surface));
+  box-shadow: 0 4px 20px rgba(var(--v-theme-primary), 0.3);
   margin: 0 auto;
   display: block;
 }
@@ -127,7 +128,8 @@ const statusText = computed(() => {
   flex-direction: column;
   align-items: center;
   padding: 12px;
-  background: rgba(21, 101, 192, 0.04);
+  background: rgba(var(--v-theme-primary), 0.05);
   border-radius: 12px;
+  border: 1px solid rgba(var(--v-theme-primary), 0.05);
 }
 </style>

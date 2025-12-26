@@ -90,15 +90,17 @@ const formattedDate = computed(() => {
   position: relative;
   overflow: hidden;
   transition: all 0.3s ease;
+  background: rgb(var(--v-theme-surface));
+  border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
 }
 
 .announcement-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
 }
 
 .announcement-card.important {
-  border: 1px solid rgba(255, 152, 0, 0.3);
+  border: 1px solid rgba(var(--v-theme-warning), 0.3);
 }
 
 .card-accent {

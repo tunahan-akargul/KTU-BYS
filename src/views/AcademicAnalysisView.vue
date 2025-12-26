@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { useDisplay } from 'vuetify'
 import { useStudentStore } from '@/stores/studentStore'
 
+const { mdAndDown } = useDisplay()
 const studentStore = useStudentStore()
 
 const gpaHistory = [
@@ -11,7 +13,7 @@ const gpaHistory = [
 </script>
 
 <template>
-  <v-container fluid class="analysis-page pa-6">
+  <v-container fluid :class="['analysis-page', mdAndDown ? 'pa-4' : 'pa-6']">
     <!-- Page Header -->
     <v-row class="mb-6">
       <v-col cols="12">
@@ -96,23 +98,23 @@ const gpaHistory = [
 
 <style scoped>
 .analysis-page {
-  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  background: linear-gradient(135deg, rgba(var(--v-theme-primary), 0.1) 0%, rgb(var(--v-theme-background)) 100%);
   min-height: 100vh;
 }
 
 .analysis-card {
   border-radius: 20px;
-  border: 1px solid rgba(21, 101, 192, 0.1);
-  background: white;
+  border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+  background: rgb(var(--v-theme-surface));
 }
 
 .chart-container {
-  border-bottom: 2px solid #eee;
+  border-bottom: 2px solid rgba(var(--v-border-color), var(--v-border-opacity));
 }
 
 .target-card {
   border-radius: 20px;
-  background: linear-gradient(135deg, #ffffff 0%, #f1f8e9 100%);
-  border: 1px solid rgba(76, 175, 80, 0.1);
+  background: linear-gradient(135deg, rgb(var(--v-theme-surface)) 0%, rgba(var(--v-theme-success), 0.05) 100%);
+  border: 1px solid rgba(var(--v-theme-success), 0.1);
 }
 </style>

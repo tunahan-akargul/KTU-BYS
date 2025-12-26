@@ -1,17 +1,22 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useDisplay, useTheme } from 'vuetify'
 import AppNavigation from '@/components/common/AppNavigation.vue'
 import AppBar from '@/components/common/AppBar.vue'
 
-const drawer = ref(true)
+const { mdAndDown } = useDisplay()
+const theme = useTheme()
+const drawer = ref(!mdAndDown.value)
+
+const currentTheme = computed(() => theme.global.name.value)
 </script>
 
 <template>
-  <v-app>
+  <v-app :theme="currentTheme">
     <AppNavigation v-model="drawer" />
     <AppBar @toggle-drawer="drawer = !drawer" />
     <v-main class="main-content">
-      <v-container fluid class="pa-6">
+      <v-container fluid :class="mdAndDown ? 'pa-4' : 'pa-6'">
         <router-view v-slot="{ Component }">
           <transition name="fade" mode="out-in">
             <component :is="Component" />
@@ -24,7 +29,7 @@ const drawer = ref(true)
 
 <style scoped>
 .main-content {
-  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+  background: linear-gradient(135deg, rgb(var(--v-theme-background)) 0%, rgb(var(--v-theme-surface)) 100%);
   min-height: 100vh;
 }
 

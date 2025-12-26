@@ -97,13 +97,14 @@ const headers = [
 
 <style scoped>
 .dept-schedule-page {
-    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    background: linear-gradient(135deg, rgb(var(--v-theme-background)) 0%, rgb(var(--v-theme-surface)) 100%);
     min-height: 100vh;
 }
 
 .dept-schedule-card {
     border-radius: 16px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+    background: rgb(var(--v-theme-surface));
 }
 
 .dept-schedule-table {

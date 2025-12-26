@@ -148,10 +148,10 @@ function getGradeColor(grade?: string) {
 
 .course-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(21, 101, 192, 0.15);
+  box-shadow: 0 12px 40px rgba(var(--v-theme-primary), 0.2);
 }
 
 .course-header {
-  background: linear-gradient(135deg, rgba(21, 101, 192, 0.05) 0%, rgba(0, 188, 212, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(var(--v-theme-primary), 0.05) 0%, rgba(var(--v-theme-secondary), 0.05) 100%);
 }
 </style>

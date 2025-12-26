@@ -50,10 +50,10 @@ const quickActions = [
         <v-card class="welcome-card pa-6">
           <div class="d-flex align-center justify-space-between flex-wrap">
             <div>
-              <h1 class="text-h4 font-weight-bold mb-2">
+              <h1 class="text-h5 text-sm-h4 font-weight-bold mb-2">
                 Hoş Geldiniz, {{ studentStore.student.firstName }}! 👋
               </h1>
-              <p class="text-body-1 text-medium-emphasis mb-0">
+              <p class="text-body-2 text-sm-body-1 text-medium-emphasis mb-0">
                 KTÜ Öğrenci Bilgi Sistemine hoş geldiniz. Bugün {{ formattedDate }}.
               </p>
             </div>
@@ -67,40 +67,40 @@ const quickActions = [
 
     <!-- Stats Cards -->
     <v-row class="mb-6">
-      <v-col cols="12" sm="6" md="3">
-        <v-card class="stat-card pa-4">
+      <v-col cols="12" sm="6" lg="3">
+        <v-card class="stat-card pa-4 pa-sm-6">
           <div class="d-flex align-center">
-            <v-avatar color="primary" size="48" class="mr-3">
+            <v-avatar color="primary" size="48" size-sm="56" class="mr-3">
               <v-icon color="white">mdi-chart-line</v-icon>
             </v-avatar>
             <div>
-              <div class="text-h5 font-weight-bold">{{ studentStore.student.gpa.toFixed(2) }}</div>
+              <div class="text-h5 text-sm-h4 font-weight-bold">{{ studentStore.student.gpa.toFixed(2) }}</div>
               <div class="text-caption text-medium-emphasis">Genel Not Ortalaması</div>
             </div>
           </div>
         </v-card>
       </v-col>
-      <v-col cols="12" sm="6" md="3">
-        <v-card class="stat-card pa-4">
+      <v-col cols="12" sm="6" lg="3">
+        <v-card class="stat-card pa-4 pa-sm-6">
           <div class="d-flex align-center">
-            <v-avatar color="success" size="48" class="mr-3">
+            <v-avatar color="success" size="48" size-sm="56" class="mr-3">
               <v-icon color="white">mdi-book-check</v-icon>
             </v-avatar>
             <div>
-              <div class="text-h5 font-weight-bold">{{ studentStore.activeCoursesCount }}</div>
+              <div class="text-h5 text-sm-h4 font-weight-bold">{{ studentStore.activeCoursesCount }}</div>
               <div class="text-caption text-medium-emphasis">Aktif Ders</div>
             </div>
           </div>
         </v-card>
       </v-col>
-      <v-col cols="12" sm="6" md="3">
-        <v-card class="stat-card pa-4">
+      <v-col cols="12" sm="6" lg="3">
+        <v-card class="stat-card pa-4 pa-sm-6">
           <div class="d-flex align-center">
-            <v-avatar color="info" size="48" class="mr-3">
+            <v-avatar color="info" size="48" size-sm="56" class="mr-3">
               <v-icon color="white">mdi-checkbox-marked-circle</v-icon>
             </v-avatar>
             <div>
-              <div class="text-h5 font-weight-bold">
+              <div class="text-h5 text-sm-h4 font-weight-bold">
                 {{ studentStore.student.completedCredits }}/{{ studentStore.student.totalCredits }}
               </div>
               <div class="text-caption text-medium-emphasis">Tamamlanan Kredi</div>
@@ -108,14 +108,14 @@ const quickActions = [
           </div>
         </v-card>
       </v-col>
-      <v-col cols="12" sm="6" md="3">
-        <v-card class="stat-card pa-4">
+      <v-col cols="12" sm="6" lg="3">
+        <v-card class="stat-card pa-4 pa-sm-6">
           <div class="d-flex align-center">
-            <v-avatar :color="feeStatusColor" size="48" class="mr-3">
+            <v-avatar :color="feeStatusColor" size="48" size-sm="56" class="mr-3">
               <v-icon color="white">mdi-currency-try</v-icon>
             </v-avatar>
             <div>
-              <div class="text-h6 font-weight-bold">{{ feeStatusText }}</div>
+              <div class="text-h6 text-sm-h5 font-weight-bold">{{ feeStatusText }}</div>
               <div class="text-caption text-medium-emphasis">Harç Durumu</div>
             </div>
           </div>
@@ -135,7 +135,7 @@ const quickActions = [
         <!-- Quick Actions -->
         <h2 class="text-h6 font-weight-bold mb-4">Hızlı Erişim</h2>
         <v-row class="mb-6">
-          <v-col cols="6" sm="3" v-for="action in quickActions" :key="action.title">
+          <v-col cols="6" sm="6" md="3" v-for="action in quickActions" :key="action.title">
             <QuickActionCard v-bind="action" />
           </v-col>
         </v-row>
@@ -161,18 +161,19 @@ const quickActions = [
 
 <style scoped>
 .welcome-card {
-  background: linear-gradient(135deg, rgba(21, 101, 192, 0.08) 0%, rgba(0, 188, 212, 0.08) 100%);
+  background: linear-gradient(135deg, rgba(var(--v-theme-primary), 0.1) 0%, rgba(var(--v-theme-secondary), 0.1) 100%);
   border-radius: 20px;
-  border: 1px solid rgba(21, 101, 192, 0.1);
+  border: 1px solid rgba(var(--v-theme-primary), 0.1);
 }
 
 .stat-card {
   border-radius: 16px;
   transition: all 0.3s ease;
+  background: rgb(var(--v-theme-surface));
 }
 
 .stat-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 </style>

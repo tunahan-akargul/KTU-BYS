@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useDisplay } from 'vuetify'
 import { mockFees } from '@/mock/mockData'
 import type { Fee } from '@/types'
+
+const { mdAndDown } = useDisplay()
 
 const headers = [
     { title: 'Dönem', key: 'semester' },
@@ -35,15 +38,15 @@ const totalPendingAmount = computed(() => pendingFees.value.reduce((sum, f) => s
 </script>
 
 <template>
-    <v-container fluid class="fees-page pa-6">
+    <v-container fluid :class="['fees-page', mdAndDown ? 'pa-4' : 'pa-6']">
         <!-- Page Header -->
         <v-row class="mb-6">
             <v-col cols="12">
                 <div class="d-flex align-center">
                     <v-icon size="32" color="primary" class="mr-3">mdi-wallet</v-icon>
                     <div>
-                        <h1 class="text-h4 font-weight-bold">Harç Ödemeleri</h1>
-                        <p class="text-subtitle-1 text-medium-emphasis mb-0">
+                        <h1 class="text-h5 text-sm-h4 font-weight-bold">Harç Ödemeleri</h1>
+                        <p class="text-body-2 text-sm-subtitle-1 text-medium-emphasis mb-0">
                             Öğrenim ücreti ve harç durumunuzu takip edin
                         </p>
                     </div>
@@ -53,25 +56,25 @@ const totalPendingAmount = computed(() => pendingFees.value.reduce((sum, f) => s
 
         <!-- Summary Cards -->
         <v-row class="mb-6">
-            <v-col cols="12" md="6">
+            <v-col cols="12" sm="12" lg="6">
                 <v-card class="summary-card status-card pa-6" elevation="0">
-                    <div class="d-flex align-center justify-space-between">
-                        <div>
+                    <div class="d-flex flex-column flex-sm-row align-start align-sm-center justify-space-between">
+                        <div class="mb-4 mb-sm-0">
                             <div class="text-overline mb-1">Toplam Borç</div>
-                            <div class="text-h3 font-weight-bold" :class="totalPendingAmount > 0 ? 'text-error' : 'text-success'">
+                            <div class="text-h4 text-sm-h3 font-weight-bold" :class="totalPendingAmount > 0 ? 'text-error' : 'text-success'">
                                 {{ totalPendingAmount.toFixed(2) }} ₺
                             </div>
                         </div>
-                        <v-btn v-if="totalPendingAmount > 0" color="primary" size="large" prepend-icon="mdi-credit-card-outline">
+                        <v-btn v-if="totalPendingAmount > 0" color="primary" block sm="auto" size="large" prepend-icon="mdi-credit-card-outline">
                             Hemen Öde
                         </v-btn>
-                        <v-chip v-else color="success" size="large" variant="flat" prepend-icon="mdi-check-circle">
+                        <v-chip v-else color="success" size="large" variant="flat" prepend-icon="mdi-check-circle" class="w-100 w-sm-auto justify-center">
                             Borcunuz Bulunmamaktadır
                         </v-chip>
                     </div>
                 </v-card>
             </v-col>
-            <v-col cols="12" md="6">
+            <v-col cols="12" sm="12" lg="6">
                 <v-card class="summary-card info-card pa-6" elevation="0">
                     <div class="d-flex align-center">
                         <v-icon size="48" color="info" class="mr-4">mdi-information-outline</v-icon>
@@ -112,29 +115,30 @@ const totalPendingAmount = computed(() => pendingFees.value.reduce((sum, f) => s
 
 <style scoped>
 .fees-page {
-    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    background: linear-gradient(135deg, rgb(var(--v-theme-background)) 0%, rgb(var(--v-theme-surface)) 100%);
     min-height: 100vh;
 }
 
 .summary-card {
     border-radius: 16px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
 }
 
 .status-card {
-    background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+    background: linear-gradient(135deg, rgb(var(--v-theme-surface)) 0%, rgba(var(--v-theme-primary), 0.05) 100%);
 }
 
 .info-card {
-    background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
-    border: 1px solid rgba(14, 165, 233, 0.2);
+    background: linear-gradient(135deg, rgba(var(--v-theme-info), 0.1) 0%, rgba(var(--v-theme-info), 0.05) 100%);
+    border: 1px solid rgba(var(--v-theme-info), 0.2);
 }
 
 .fees-table-card {
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
 }
 
 .fees-table {
     border-radius: 0 0 16px 16px;
+    background: rgb(var(--v-theme-surface));
 }
 </style>

@@ -158,24 +158,20 @@ function changePassword() {
 
 <style scoped>
 .password-page {
-    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    background: linear-gradient(135deg, rgb(var(--v-theme-background)) 0%, rgb(var(--v-theme-surface)) 100%);
     min-height: 100vh;
 }
 
-.password-card {
+.password-card, .requirements-card {
     border-radius: 16px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.requirements-card {
-    border-radius: 16px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+    background: rgb(var(--v-theme-surface));
 }
 
 .warning-card {
     border-radius: 16px;
-    background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
-    border: 1px solid rgba(255, 152, 0, 0.2);
+    background: linear-gradient(135deg, rgba(var(--v-theme-warning), 0.1) 0%, rgba(var(--v-theme-warning), 0.05) 100%);
+    border: 1px solid rgba(var(--v-theme-warning), 0.2);
 }
 
 .warning-list {

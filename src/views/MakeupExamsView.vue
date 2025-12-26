@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import { useDisplay } from 'vuetify'
 import { mockMakeupEligible } from '@/mock/mockData'
+
+const { mdAndDown } = useDisplay()
 
 const headers = [
     { title: 'Ders Kodu', key: 'code' },
@@ -15,7 +18,7 @@ function applyForMakeup(courseName: string) {
 </script>
 
 <template>
-    <v-container fluid class="makeup-page pa-6">
+    <v-container fluid :class="['makeup-page', mdAndDown ? 'pa-4' : 'pa-6']">
         <!-- Page Header -->
         <v-row class="mb-6">
             <v-col cols="12">
@@ -79,16 +82,18 @@ function applyForMakeup(courseName: string) {
 
 <style scoped>
 .makeup-page {
-    background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+    background: linear-gradient(135deg, rgba(var(--v-theme-warning), 0.05) 0%, rgb(var(--v-theme-background)) 100%);
     min-height: 100vh;
 }
 
 .makeup-table-card, .history-card {
     border-radius: 20px;
-    border: 1px solid rgba(251, 140, 0, 0.1);
+    border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+    background: rgb(var(--v-theme-surface));
 }
 
 .makeup-table {
     border-radius: 0 0 20px 20px;
+    background: rgb(var(--v-theme-surface));
 }
 </style>

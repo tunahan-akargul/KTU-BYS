@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useDisplay } from 'vuetify'
+
+const { mdAndDown } = useDisplay()
 import { useStudentStore } from '@/stores/studentStore'
 
 const studentStore = useStudentStore()
@@ -16,15 +19,15 @@ function submitRequest() {
 </script>
 
 <template>
-  <v-container fluid class="clearance-page pa-6">
+  <v-container fluid :class="['clearance-page', mdAndDown ? 'pa-4' : 'pa-6']">
     <!-- Standard Page Header -->
     <v-row class="mb-6">
       <v-col cols="12">
         <div class="d-flex align-center">
           <v-icon size="32" color="primary" class="mr-3">mdi-file-cancel-outline</v-icon>
           <div>
-            <h1 class="text-h4 font-weight-bold">İlişik Kesme Talebi</h1>
-            <p class="text-subtitle-1 text-medium-emphasis mb-0">
+            <h1 class="text-h5 text-sm-h4 font-weight-bold">İlişik Kesme Talebi</h1>
+            <p class="text-body-2 text-sm-subtitle-1 text-medium-emphasis mb-0">
               Mezuniyet veya kayıt dondurma öncesi resmi başvuru süreci
             </p>
           </div>
@@ -42,8 +45,8 @@ function submitRequest() {
 
       <v-card-text class="pa-8">
         <!-- Reason Radio Group -->
-        <v-radio-group v-model="reasonType" inline class="mb-6" hide-details>
-          <v-radio label="Mezuniyet Sebebi ile İlişik Kesme" value="graduation" color="primary" class="mr-8"></v-radio>
+        <v-radio-group v-model="reasonType" inline class="mb-6 d-flex flex-column flex-sm-row" hide-details>
+          <v-radio label="Mezuniyet Sebebi ile İlişik Kesme" value="graduation" color="primary" class="mr-0 mr-sm-8 mb-2 mb-sm-0"></v-radio>
           <v-radio label="Kendi İsteğim ile İlişik Kesme" value="personal" color="primary"></v-radio>
         </v-radio-group>
 
@@ -59,9 +62,9 @@ function submitRequest() {
         </v-card>
 
         <!-- Form Rows -->
-        <v-row class="form-row align-center mb-6">
-          <v-col cols="12" md="3" class="text-subtitle-1 font-weight-bold">İlişik Kesme Sebebi</v-col>
-          <v-col cols="12" md="9">
+        <v-row class="form-row align-start align-sm-center mb-6">
+          <v-col cols="12" sm="3" class="text-subtitle-2 text-sm-subtitle-1 font-weight-bold pb-1 pb-sm-3">İlişik Kesme Sebebi</v-col>
+          <v-col cols="12" sm="9">
             <v-textarea
               v-model="specificReason"
               variant="outlined"
@@ -73,9 +76,9 @@ function submitRequest() {
           </v-col>
         </v-row>
 
-        <v-row class="form-row align-center mb-6">
-          <v-col cols="12" md="3" class="text-subtitle-1 font-weight-bold">Cep Telefonu</v-col>
-          <v-col cols="12" md="4">
+        <v-row class="form-row align-start align-sm-center mb-6">
+          <v-col cols="12" sm="3" class="text-subtitle-2 text-sm-subtitle-1 font-weight-bold pb-1 pb-sm-3">Cep Telefonu</v-col>
+          <v-col cols="12" sm="4">
             <v-text-field
               v-model="phone"
               variant="outlined"
@@ -88,9 +91,9 @@ function submitRequest() {
           </v-col>
         </v-row>
 
-        <v-row class="form-row align-center mb-8">
-          <v-col cols="12" md="3" class="text-subtitle-1 font-weight-bold">Mezuniyet E-Posta</v-col>
-          <v-col cols="12" md="6">
+        <v-row class="form-row align-start align-sm-center mb-8">
+          <v-col cols="12" sm="3" class="text-subtitle-2 text-sm-subtitle-1 font-weight-bold pb-1 pb-sm-3">Mezuniyet E-Posta</v-col>
+          <v-col cols="12" sm="6">
             <v-text-field
               v-model="email"
               variant="outlined"
@@ -137,35 +140,35 @@ function submitRequest() {
 
 <style scoped>
 .clearance-page {
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  background: linear-gradient(135deg, rgb(var(--v-theme-background)) 0%, rgb(var(--v-theme-surface)) 100%);
   min-height: calc(100vh - 64px);
 }
 
 .clearance-card {
   border-radius: 20px;
-  background: white;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: rgb(var(--v-theme-surface));
+  border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
   overflow: hidden;
 }
 
 .form-header {
-  background: linear-gradient(135deg, rgba(21, 101, 192, 0.05) 0%, rgba(0, 188, 212, 0.05) 100%);
-  color: var(--v-theme-primary);
+  background: linear-gradient(135deg, rgba(var(--v-theme-primary), 0.05) 0%, rgba(var(--v-theme-secondary), 0.05) 100%);
+  color: rgb(var(--v-theme-primary));
 }
 
 .formal-text-card {
-  background-color: #f8fafc;
-  border-color: #e2e8f0 !important;
+  background-color: rgba(var(--v-theme-primary), 0.03);
+  border-color: rgba(var(--v-border-color), var(--v-border-opacity)) !important;
   border-radius: 12px;
 }
 
 :deep(.v-field--variant-outlined) {
-  --v-field-border-color: #e2e8f0;
+  --v-field-border-color: rgba(var(--v-border-color), var(--v-border-opacity));
   border-radius: 12px;
 }
 
 :deep(.v-field--focused) {
-  --v-field-border-color: var(--v-theme-primary);
+  --v-field-border-color: rgb(var(--v-theme-primary));
 }
 
 .form-row {

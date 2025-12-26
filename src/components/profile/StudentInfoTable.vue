@@ -57,19 +57,19 @@ defineProps<{
 }
 
 .info-table tr:hover {
-  background: rgba(21, 101, 192, 0.04);
+  background: rgba(var(--v-theme-primary), 0.04);
 }
 
 .label-cell {
   width: 200px;
   white-space: nowrap;
   padding: 16px !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
 }
 
 .value-cell {
   padding: 16px !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
 }
 
 .info-table tr:last-child .label-cell,

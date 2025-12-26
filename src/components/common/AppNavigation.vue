@@ -1,31 +1,43 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { useDisplay } from 'vuetify'
 import { navigationItems } from '@/mock/navigationItemMock'
 import ktuLogo from '@/assets/Photos/ktu-logo.png'
 
-defineProps<{
+const props = defineProps<{
   modelValue: boolean
 }>()
 
-defineEmits<{
+const emit = defineEmits<{
   'update:modelValue': [value: boolean]
 }>()
 
+const { mdAndDown } = useDisplay()
 const rail = ref(false)
+
+// Close drawer on small screens after navigation
+watch(mdAndDown, (isMobileOrTablet) => {
+  if (isMobileOrTablet) rail.value = false
+})
 </script>
 
 <template>
-  <v-navigation-drawer :model-value="modelValue" @update:model-value="$emit('update:modelValue', $event)" :rail="rail"
-    permanent class="nav-drawer">
+  <v-navigation-drawer 
+    :model-value="modelValue" 
+    @update:model-value="$emit('update:modelValue', $event)" 
+    :rail="!mdAndDown && rail"
+    :temporary="mdAndDown"
+    class="nav-drawer"
+  >
     <!-- Logo Section -->
-    <div class="logo-section pa-4">
-      <div class="d-flex align-center">
-        <div class="logo-icon">
-          <v-img :src="ktuLogo" width="32" height="32" />
+    <div class="logo-section" :class="rail ? 'pa-2' : 'pa-4'">
+      <div class="d-flex align-center" :class="{ 'justify-center': rail }">
+        <div class="logo-icon-wrapper">
+          <v-img :src="ktuLogo" :width="rail ? 32 : 40" :height="rail ? 32 : 40" contain />
         </div>
         <div v-if="!rail" class="ml-3">
-          <div class="text-h6 font-weight-bold text-primary">KTÜ</div>
-          <div class="text-caption text-medium-emphasis">Bilgi Yönetim Sistemi</div>
+          <div class="text-h6 font-weight-bold logo-text">KTÜ</div>
+          <div class="text-caption logo-subtext">Bilgi Yönetim Sistemi</div>
         </div>
       </div>
     </div>
@@ -36,21 +48,51 @@ const rail = ref(false)
     <v-list density="compact" nav class="px-2">
       <template v-for="item in navigationItems" :key="item.title">
         <!-- Items with children -->
-        <v-list-group v-if="item.children" :value="item.title">
-          <template #activator="{ props }">
-            <v-list-item v-bind="props" :prepend-icon="item.icon" :title="item.title" class="nav-item" />
-          </template>
-          <v-list-item v-for="child in item.children" :key="child.title" :to="child.to" :prepend-icon="child.icon"
-            :title="child.title" class="nav-child-item" />
-        </v-list-group>
+        <template v-if="item.children">
+          <!-- Normal mode: Show group with children -->
+          <v-list-group v-if="!rail" :value="item.title">
+            <template #activator="{ props }">
+              <v-list-item v-bind="props" :prepend-icon="item.icon" :title="item.title" class="nav-item" />
+            </template>
+            <v-list-item 
+              v-for="child in item.children" 
+              :key="child.title" 
+              :to="child.to" 
+              :prepend-icon="child.icon"
+              :title="child.title" 
+              class="nav-child-item"
+              @click="mdAndDown && $emit('update:modelValue', false)"
+            />
+          </v-list-group>
+
+          <!-- Rail mode: Show only the parent icon (acting as an expander) -->
+          <v-list-item 
+            v-else 
+            :prepend-icon="item.icon" 
+            :title="item.title" 
+            class="nav-item"
+            @click="rail = false"
+          >
+            <v-tooltip activator="parent" location="right">{{ item.title }}</v-tooltip>
+          </v-list-item>
+        </template>
 
         <!-- Items without children -->
-        <v-list-item v-else :to="item.to" :href="item.href" :prepend-icon="item.icon" :title="item.title"
-          class="nav-item" />
+        <v-list-item 
+          v-else 
+          :to="item.to" 
+          :href="item.href" 
+          :prepend-icon="item.icon" 
+          :title="item.title"
+          class="nav-item"
+          @click="mdAndDown && $emit('update:modelValue', false)"
+        >
+          <v-tooltip v-if="rail" activator="parent" location="right">{{ item.title }}</v-tooltip>
+        </v-list-item>
       </template>
     </v-list>
 
-    <template #append>
+    <template #append v-if="!mdAndDown">
       <v-divider />
       <div class="pa-2">
         <v-btn block variant="text" @click="rail = !rail" :icon="rail ? 'mdi-chevron-right' : 'mdi-chevron-left'" />
@@ -61,37 +103,45 @@ const rail = ref(false)
 
 <style scoped>
 .nav-drawer {
-  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-  border-right: 1px solid rgba(0, 0, 0, 0.05);
+  background: linear-gradient(180deg, rgb(var(--v-theme-surface)) 0%, rgb(var(--v-theme-background)) 100%) !important;
+  border-right: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
 }
 
 .logo-section {
-  background: linear-gradient(135deg, rgba(21, 101, 192, 0.05) 0%, rgba(0, 188, 212, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(var(--v-theme-primary), 0.05) 0%, rgba(var(--v-theme-secondary), 0.05) 100%);
   border-radius: 0 0 16px 0;
 }
 
-.logo-icon {
-  width: 48px;
-  height: 48px;
-  background: linear-gradient(135deg, #ffffff 0%, #89f1ff 100%);
+.logo-icon-wrapper {
+  padding: 4px;
+  background: white;
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 4px 12px rgba(var(--v-theme-primary), 0.1);
+  border: 1px solid rgba(var(--v-theme-primary), 0.1);
 }
 
-.logo-icon .v-icon {
-  color: white !important;
+.logo-text {
+  color: rgb(var(--v-theme-primary)) !important;
+  line-height: 1.2;
+}
+
+.logo-subtext {
+  color: rgba(var(--v-theme-on-surface), 0.6) !important;
+  line-height: 1.2;
 }
 
 .nav-item {
   border-radius: 12px;
   margin-bottom: 4px;
   transition: all 0.2s ease;
+  color: rgba(var(--v-theme-on-surface), 0.8) !important;
 }
 
 .nav-item:hover {
-  background: rgba(21, 101, 192, 0.08);
+  background: rgba(var(--v-theme-primary), 0.08);
 }
 
 .nav-child-item {
@@ -99,6 +149,7 @@ const rail = ref(false)
   margin-left: 0 !important;
   padding-left: 8px !important;
   font-size: 0.875rem;
+  color: rgba(var(--v-theme-on-surface), 0.7);
 }
 
 :deep(.v-list-group__items) {
@@ -111,11 +162,11 @@ const rail = ref(false)
 }
 
 :deep(.v-list-item--active) {
-  background: linear-gradient(135deg, rgba(21, 101, 192, 0.15) 0%, rgba(0, 188, 212, 0.1) 100%) !important;
-  color: #1565C0;
+  background: linear-gradient(135deg, rgba(var(--v-theme-primary), 0.15) 0%, rgba(var(--v-theme-secondary), 0.1) 100%) !important;
+  color: rgb(var(--v-theme-primary)) !important;
 }
 
 :deep(.v-list-item--active .v-icon) {
-  color: #1565C0;
+  color: rgb(var(--v-theme-primary)) !important;
 }
 </style>

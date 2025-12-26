@@ -123,14 +123,15 @@ function getCourseColor(courseCode: string): string {
 
 <style scoped>
 .schedule-page {
-    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    background: linear-gradient(135deg, rgb(var(--v-theme-background)) 0%, rgb(var(--v-theme-surface)) 100%);
     min-height: 100vh;
 }
 
 .schedule-card {
     border-radius: 16px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
     overflow: hidden;
+    background: rgb(var(--v-theme-surface));
 }
 
 .schedule-table-wrapper {
@@ -145,29 +146,29 @@ function getCourseColor(courseCode: string): string {
 
 .schedule-table th,
 .schedule-table td {
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
     padding: 8px;
     text-align: center;
 }
 
 .time-header {
-    background: #1565C0;
+    background: rgb(var(--v-theme-primary));
     color: white;
     font-weight: 600;
     width: 80px;
 }
 
 .day-header {
-    background: #1565C0;
+    background: rgb(var(--v-theme-primary));
     color: white;
     font-weight: 600;
     min-width: 150px;
 }
 
 .time-cell {
-    background: #f5f5f5;
+    background: rgba(var(--v-theme-on-surface), 0.05);
     font-weight: 600;
-    color: #333;
+    color: rgb(var(--v-theme-on-surface));
 }
 
 .course-cell {
@@ -215,6 +216,7 @@ function getCourseColor(courseCode: string): string {
 
 .course-list-card {
     border-radius: 16px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+    background: rgb(var(--v-theme-surface));
 }
 </style>

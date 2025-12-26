@@ -1,8 +1,10 @@
-
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useDisplay } from 'vuetify'
 import { mockAttendance } from '@/mock/mockData'
 import type { Attendance } from '@/types'
+
+const { mdAndDown } = useDisplay()
 
 // Computed properties
 const safeCourses = computed(() => mockAttendance.filter(c => c.status === 'safe').length)
@@ -85,15 +87,15 @@ function getRemainingClass(course: Attendance): string {
 }
 </script>
 <template>
-    <v-container fluid class="attendance-page pa-6">
+    <v-container fluid :class="['attendance-page', mdAndDown ? 'pa-4' : 'pa-6']">
         <!-- Page Header -->
         <v-row class="mb-6">
             <v-col cols="12">
                 <div class="d-flex align-center">
                     <v-icon size="32" color="primary" class="mr-3">mdi-account-check</v-icon>
                     <div>
-                        <h1 class="text-h4 font-weight-bold">Devamsızlık Takibi</h1>
-                        <p class="text-subtitle-1 text-medium-emphasis mb-0">
+                        <h1 class="text-h5 text-sm-h4 font-weight-bold">Devamsızlık Takibi</h1>
+                        <p class="text-body-2 text-sm-subtitle-1 text-medium-emphasis mb-0">
                             2024-2025 Güz Dönemi - Devamsızlık durumunuzu takip edin
                         </p>
                     </div>
@@ -210,35 +212,36 @@ function getRemainingClass(course: Attendance): string {
 
 <style scoped>
 .attendance-page {
-    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    background: linear-gradient(135deg, rgb(var(--v-theme-background)) 0%, rgb(var(--v-theme-surface)) 100%);
     min-height: 100vh;
 }
 
 .summary-card {
     border-radius: 16px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: rgb(var(--v-theme-surface));
 }
 
 .summary-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
 .safe-card {
-    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    background: linear-gradient(135deg, rgba(var(--v-theme-success), 0.1) 0%, rgba(var(--v-theme-success), 0.05) 100%);
 }
 
 .warning-card {
-    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    background: linear-gradient(135deg, rgba(var(--v-theme-warning), 0.1) 0%, rgba(var(--v-theme-warning), 0.05) 100%);
 }
 
 .danger-card {
-    background: linear-gradient(135deg, #fef2f2 0%, #fecaca 100%);
+    background: linear-gradient(135deg, rgba(var(--v-theme-error), 0.1) 0%, rgba(var(--v-theme-error), 0.05) 100%);
 }
 
 .failed-card {
-    background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+    background: linear-gradient(135deg, rgba(var(--v-theme-on-surface), 0.1) 0%, rgba(var(--v-theme-on-surface), 0.05) 100%);
 }
 
 .info-alert {
@@ -247,34 +250,35 @@ function getRemainingClass(course: Attendance): string {
 
 .attendance-card {
     border-radius: 16px;
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     overflow: hidden;
+    background: rgb(var(--v-theme-surface));
 }
 
 .attendance-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
 }
 
 .status-safe {
-    border-left: 4px solid #22c55e;
-    background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+    border-left: 4px solid rgb(var(--v-theme-success));
+    background: linear-gradient(135deg, rgb(var(--v-theme-surface)) 0%, rgba(var(--v-theme-success), 0.05) 100%);
 }
 
 .status-warning {
-    border-left: 4px solid #f59e0b;
-    background: linear-gradient(135deg, #ffffff 0%, #fffbeb 100%);
+    border-left: 4px solid rgb(var(--v-theme-warning));
+    background: linear-gradient(135deg, rgb(var(--v-theme-surface)) 0%, rgba(var(--v-theme-warning), 0.05) 100%);
 }
 
 .status-danger {
-    border-left: 4px solid #ef4444;
-    background: linear-gradient(135deg, #ffffff 0%, #fef2f2 100%);
+    border-left: 4px solid rgb(var(--v-theme-error));
+    background: linear-gradient(135deg, rgb(var(--v-theme-surface)) 0%, rgba(var(--v-theme-error), 0.05) 100%);
 }
 
 .status-failed {
-    border-left: 4px solid #6b7280;
-    background: linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%);
+    border-left: 4px solid rgba(var(--v-theme-on-surface), 0.3);
+    background: linear-gradient(135deg, rgb(var(--v-theme-surface)) 0%, rgba(var(--v-theme-on-surface), 0.05) 100%);
 }
 
 .progress-bar {
@@ -286,6 +290,6 @@ function getRemainingClass(course: Attendance): string {
 }
 
 .details-section {
-    border-top: 1px dashed rgba(0, 0, 0, 0.1);
+    border-top: 1px dashed rgba(var(--v-border-color), var(--v-border-opacity));
 }
 </style>

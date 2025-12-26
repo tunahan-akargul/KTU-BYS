@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useTheme } from 'vuetify'
 import { useStudentStore } from '@/stores/studentStore'
 
+const { global: theme } = useTheme()
+const currentTheme = computed(() => theme.name.value)
 const studentStore = useStudentStore()
 
 const phone = ref(studentStore.student.phone)
@@ -62,7 +65,8 @@ function saveChanges() {
                                     KTÜ E-Posta
                                 </label>
                                 <v-text-field :model-value="email" variant="outlined" density="comfortable" readonly
-                                    disabled prepend-inner-icon="mdi-email-lock" bg-color="grey-lighten-4"
+                                    disabled prepend-inner-icon="mdi-email-lock" 
+                                    :bg-color="currentTheme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'grey-lighten-4'"
                                     hint="Bu alan değiştirilemez" persistent-hint />
                             </div>
 
@@ -142,24 +146,26 @@ function saveChanges() {
 
 <style scoped>
 .contact-page {
-    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    background: linear-gradient(135deg, rgb(var(--v-theme-background)) 0%, rgb(var(--v-theme-surface)) 100%);
     min-height: 100vh;
 }
 
 .contact-card {
     border-radius: 16px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+    background: rgb(var(--v-theme-surface));
 }
 
 .info-card {
     border-radius: 16px;
-    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-    border: 1px solid rgba(21, 101, 192, 0.1);
+    background: linear-gradient(135deg, rgba(var(--v-theme-primary), 0.1) 0%, rgba(var(--v-theme-primary), 0.05) 100%);
+    border: 1px solid rgba(var(--v-theme-primary), 0.1);
 }
 
 .current-info-card {
     border-radius: 16px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+    background: rgb(var(--v-theme-surface));
 }
 
 .info-list {
@@ -169,7 +175,8 @@ function saveChanges() {
 
 .info-list li {
     margin-bottom: 8px;
-    color: rgba(0, 0, 0, 0.7);
+    color: rgb(var(--v-theme-on-surface));
+    opacity: 0.7;
     font-size: 14px;
 }
 </style>

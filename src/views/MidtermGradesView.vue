@@ -133,14 +133,15 @@ function getGradeStatus(grade: number): string {
 
 <style scoped>
 .midterm-page {
-    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    background: linear-gradient(135deg, rgb(var(--v-theme-background)) 0%, rgb(var(--v-theme-surface)) 100%);
     min-height: 100vh;
 }
 
 .stat-card {
     border-radius: 16px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
     transition: transform 0.2s ease;
+    background: rgb(var(--v-theme-surface));
 }
 
 .stat-card:hover {
@@ -149,8 +150,9 @@ function getGradeStatus(grade: number): string {
 
 .grade-card {
     border-radius: 16px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: rgb(var(--v-theme-surface));
 }
 
 .grade-card:hover {
@@ -161,7 +163,7 @@ function getGradeStatus(grade: number): string {
 .grade-item {
     text-align: center;
     padding: 8px;
-    background: rgba(0, 0, 0, 0.02);
+    background: rgba(var(--v-theme-on-surface), 0.02);
     border-radius: 8px;
 }
 </style>

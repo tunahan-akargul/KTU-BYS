@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useDisplay } from 'vuetify'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
+const { mdAndDown } = useDisplay()
 
 // Map routes to view components or content sections
 const currentView = computed(() => {
@@ -67,15 +69,15 @@ const headersDocs = [
 </script>
 
 <template>
-  <v-container fluid class="internship-page pa-6">
+  <v-container fluid :class="['internship-page', mdAndDown ? 'pa-4' : 'pa-6']">
     <!-- Consistent Page Header -->
     <v-row class="mb-6">
       <v-col cols="12">
         <div class="d-flex align-center">
           <v-icon size="32" color="primary" class="mr-3">{{ pageInfo.icon }}</v-icon>
           <div>
-            <h1 class="text-h4 font-weight-bold">{{ pageInfo.title }}</h1>
-            <p class="text-subtitle-1 text-medium-emphasis mb-0">{{ pageInfo.subtitle }}</p>
+            <h1 class="text-h5 text-sm-h4 font-weight-bold">{{ pageInfo.title }}</h1>
+            <p class="text-body-2 text-sm-subtitle-1 text-medium-emphasis mb-0">{{ pageInfo.subtitle }}</p>
           </div>
         </div>
       </v-col>
@@ -110,22 +112,48 @@ const headersDocs = [
       </div>
 
       <div v-if="currentView === 'docs'" class="pa-6">
-        <v-data-table :headers="headersDocs" :items="[]">
-          <template #no-data>İndirilecek döküman bulunamadı.</template>
+        <v-data-table :headers="headersDocs" :items="[
+          { no: 1, name: 'Staj Başvuru Formu', desc: 'İşletmeye onaylatılacak form', download: '' },
+          { no: 2, name: 'Devlet Katkısı Formu', desc: 'Ücret alıyorsanız doldurulmalıdır', download: '' },
+          { no: 3, name: 'Sigorta Taahhütnamesi', desc: 'Sağlık durum beyanı', download: '' }
+        ]">
+          <template #item.download>
+            <v-btn icon="mdi-download" variant="text" size="small" color="primary" />
+          </template>
         </v-data-table>
       </div>
 
       <div v-if="currentView === 'faq'" class="pa-8">
-        <div v-for="(faq, i) in faqs" :key="i" class="mb-8 p-4 bg-light-blue rounded">
+        <div v-for="(faq, i) in faqs" :key="i" class="mb-6 pa-5 faq-item rounded-lg">
           <h3 class="text-subtitle-1 font-weight-bold mb-2 text-primary">{{ faq.q }}</h3>
-          <div class="faq-content text-body-2" v-html="faq.a"></div>
+          <div class="faq-content text-body-2 text-medium-emphasis" v-html="faq.a"></div>
         </div>
       </div>
 
-      <!-- Add other views (regulations, requests, finish) as needed -->
-      <div v-if="['regulations', 'requests', 'finish'].includes(currentView)" class="pa-12 text-center">
-        <v-icon size="64" color="grey-lighten-2">mdi-timer-sand</v-icon>
-        <p class="mt-4 text-medium-emphasis">Bu bölüm için kayıtlı veri bulunamadı.</p>
+      <div v-if="currentView === 'regulations'" class="pa-8">
+        <h2 class="text-h6 font-weight-bold mb-4">Staj Mevzuatları</h2>
+        <v-list density="comfortable">
+          <v-list-item v-for="n in 3" :key="n" prepend-icon="mdi-file-document-outline" class="mb-2 border rounded-lg">
+            <v-list-item-title>KTÜ Staj Uygulama Esasları v{{ 4-n }}.0</v-list-item-title>
+            <v-list-item-subtitle>Son güncelleme: 12.0{{ n }}.2023</v-list-item-subtitle>
+            <template #append>
+              <v-btn icon="mdi-download" variant="text" size="small" color="primary" />
+            </template>
+          </v-list-item>
+        </v-list>
+      </div>
+
+      <div v-if="currentView === 'requests'" class="pa-8">
+        <h2 class="text-h6 font-weight-bold mb-4">Staj Talepleri</h2>
+        <v-alert type="info" variant="tonal" class="mb-4">Şu an aktif bir talebiniz bulunmamaktadır.</v-alert>
+        <v-btn color="primary" prepend-icon="mdi-plus">Yeni Talep Oluştur</v-btn>
+      </div>
+
+      <div v-if="currentView === 'finish'" class="pa-12 text-center">
+        <v-icon size="64" color="primary" class="mb-4">mdi-check-circle-outline</v-icon>
+        <h2 class="text-h6 font-weight-bold mb-2">Staj Sonlandırma</h2>
+        <p class="text-medium-emphasis mb-6">Devam eden bir stajınız bulunmadığı için bu işlemi gerçekleştiremezsiniz.</p>
+        <v-btn variant="outlined" color="primary" to="/internship/apply">Yeni Başvuru Yap</v-btn>
       </div>
     </v-card>
   </v-container>
@@ -133,22 +161,36 @@ const headersDocs = [
 
 <style scoped>
 .internship-page {
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  background: linear-gradient(135deg, rgb(var(--v-theme-background)) 0%, rgb(var(--v-theme-surface)) 100%);
   min-height: calc(100vh - 64px);
 }
 
 .content-card {
   border-radius: 20px;
-  background: white;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: rgb(var(--v-theme-surface));
+  border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
 }
 
 .bg-light-blue {
-  background-color: #f1f8ff;
-  border-left: 4px solid var(--v-theme-primary);
+  background-color: rgba(var(--v-theme-primary), 0.05);
+  border-left: 4px solid rgb(var(--v-theme-primary));
 }
 
 .faq-content :deep(ul) {
   padding-left: 20px;
+}
+.faq-item {
+  background: rgb(var(--v-theme-surface));
+  border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+  transition: transform 0.2s ease;
+}
+
+.faq-item:hover {
+  transform: translateX(4px);
+  border-color: rgb(var(--v-theme-primary));
+}
+
+.faq-content :deep(p) {
+  margin-bottom: 8px;
 }
 </style>
