@@ -2,7 +2,6 @@
 import { computed } from 'vue'
 import { useDisplay } from 'vuetify'
 import { mockFees } from '@/mock/mockData'
-import type { Fee } from '@/types'
 
 const { mdAndDown } = useDisplay()
 

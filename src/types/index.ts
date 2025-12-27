@@ -97,6 +97,7 @@ export interface CafeteriaMenu {
     mainCourse: string
     sideDish: string
     dessert: string
+    drink: string
     calories: number
 }
 

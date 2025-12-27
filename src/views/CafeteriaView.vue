@@ -30,7 +30,7 @@ if (!mockCafeteriaMenu.find(m => m.day === activeDay.value)) {
             </v-col>
         </v-row>
 
-        <!-- Menu Navigation -->
+        <!-- Day Navigation -->
         <v-tabs v-model="activeDay" bg-color="transparent" color="success" class="mb-6" grow>
             <v-tab v-for="menu in mockCafeteriaMenu" :key="menu.day" :value="menu.day">
                 {{ menu.day }}
@@ -60,13 +60,18 @@ if (!mockCafeteriaMenu.find(m => m.day === activeDay.value)) {
                                     </v-list-item>
                                     <v-divider inset />
                                     <v-list-item prepend-icon="mdi-food-apple-outline">
-                                        <template #title>Yardımcı Yemek</template>
+                                        <template #title>Yan Yemek</template>
                                         <template #subtitle>{{ menu.sideDish }}</template>
                                     </v-list-item>
                                     <v-divider inset />
                                     <v-list-item prepend-icon="mdi-cookie-outline">
                                         <template #title>Tatlı / Meyve</template>
                                         <template #subtitle>{{ menu.dessert }}</template>
+                                    </v-list-item>
+                                    <v-divider inset />
+                                    <v-list-item prepend-icon="mdi-cup">
+                                        <template #title>İçecek</template>
+                                        <template #subtitle>{{ menu.drink }}</template>
                                     </v-list-item>
                                 </v-list>
                             </v-card-text>
@@ -87,13 +92,9 @@ if (!mockCafeteriaMenu.find(m => m.day === activeDay.value)) {
 
                         <v-card class="mt-4 pa-6 info-card" elevation="0">
                             <h3 class="text-subtitle-1 font-weight-bold mb-3">Yemekhane Bilgileri</h3>
-                            <div class="d-flex align-center mb-2">
-                                <v-icon size="18" color="success" class="mr-2">mdi-clock-outline</v-icon>
-                                <span class="text-body-2">Öğle: 11:30 - 13:30</span>
-                            </div>
                             <div class="d-flex align-center">
                                 <v-icon size="18" color="success" class="mr-2">mdi-clock-outline</v-icon>
-                                <span class="text-body-2">Akşam: 17:00 - 18:30</span>
+                                <span class="text-body-2">Öğle: 11:30 - 13:30</span>
                             </div>
                         </v-card>
                     </v-col>

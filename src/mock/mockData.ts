@@ -280,11 +280,11 @@ export const mockLibraryBooks: LibraryBook[] = [
 ]
 
 export const mockCafeteriaMenu: CafeteriaMenu[] = [
-    { day: 'Pazartesi', date: '2024-12-23', soup: 'Mercimek Çorbası', mainCourse: 'İzmir Köfte', sideDish: 'Pirinç Pilavı', dessert: 'Kemalpaşa Tatlısı', calories: 850 },
-    { day: 'Salı', date: '2024-12-24', soup: 'Domates Çorbası', mainCourse: 'Tavuk Sote', sideDish: 'Bulgur Pilavı', dessert: 'Meyve', calories: 720 },
-    { day: 'Çarşamba', date: '2024-12-25', soup: 'Yayla Çorbası', mainCourse: 'Kuru Fasulye', sideDish: 'Pirinç Pilavı', dessert: 'Cacık', calories: 910 },
-    { day: 'Perşembe', date: '2024-12-26', soup: 'Ezogelin Çorbası', mainCourse: 'Fırın Makarna', sideDish: 'Mevsim Salatası', dessert: 'Sütlaç', calories: 680 },
-    { day: 'Cuma', date: '2024-12-27', soup: 'Tarhana Çorbası', mainCourse: 'Balık Tava', sideDish: 'Patates Tava', dessert: 'Helva', calories: 950 },
+    { day: 'Pazartesi', date: '2024-12-23', soup: 'Mercimek Çorbası', mainCourse: 'İzmir Köfte', sideDish: 'Pirinç Pilavı', dessert: 'Kemalpaşa Tatlısı', drink: 'Ayran', calories: 850 },
+    { day: 'Salı', date: '2024-12-24', soup: 'Domates Çorbası', mainCourse: 'Tavuk Sote', sideDish: 'Bulgur Pilavı', dessert: 'Meyve', drink: 'Ayran', calories: 720 },
+    { day: 'Çarşamba', date: '2024-12-25', soup: 'Yayla Çorbası', mainCourse: 'Kuru Fasulye', sideDish: 'Pirinç Pilavı', dessert: 'Cacık', drink: 'Ayran', calories: 910 },
+    { day: 'Perşembe', date: '2024-12-26', soup: 'Ezogelin Çorbası', mainCourse: 'Fırın Makarna', sideDish: 'Mevsim Salatası', dessert: 'Sütlaç', drink: 'Ayran', calories: 680 },
+    { day: 'Cuma', date: '2024-12-27', soup: 'Tarhana Çorbası', mainCourse: 'Balık Tava', sideDish: 'Patates Tava', dessert: 'Helva', drink: 'Ayran', calories: 950 },
 ]
 
 export const mockMakeupEligible: MakeupEligibleCourse[] = [

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue'
+import { ref, watch, computed, nextTick } from 'vue'
 import { useDisplay } from 'vuetify'
 import { useRoute } from 'vue-router'
 import { navigationItems } from '@/mock/navigationItemMock'
@@ -16,11 +16,21 @@ const emit = defineEmits<{
 const { mdAndDown } = useDisplay()
 const route = useRoute()
 const rail = ref(false)
+const openedGroups = ref<string[]>([])
 
 // Check if any child of a parent item is currently active
 const isChildActive = (item: typeof navigationItems[0]) => {
   if (!item.children) return false
   return item.children.some(child => route.path === child.to)
+}
+
+// Expand a specific group and exit rail mode
+const expandGroup = (groupTitle: string) => {
+  rail.value = false
+  // Use nextTick to wait for the v-list-group components to render
+  nextTick(() => {
+    openedGroups.value = [groupTitle]
+  })
 }
 
 // Close drawer on small screens after navigation
@@ -53,7 +63,7 @@ watch(mdAndDown, (isMobileOrTablet) => {
     <v-divider class="mb-2" />
 
     <!-- Navigation Items -->
-    <v-list density="compact" nav class="px-2">
+    <v-list density="compact" nav class="px-2" v-model:opened="openedGroups">
       <template v-for="item in navigationItems" :key="item.title">
         <!-- Items with children -->
         <template v-if="item.children">
@@ -80,7 +90,7 @@ watch(mdAndDown, (isMobileOrTablet) => {
             :title="item.title" 
             class="nav-item"
             :class="{ 'nav-item--child-active': isChildActive(item) }"
-            @click="rail = false"
+            @click="expandGroup(item.title)"
           >
             <v-tooltip activator="parent" location="right">{{ item.title }}</v-tooltip>
           </v-list-item>

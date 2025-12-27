@@ -38,7 +38,7 @@ const quickActions = [
   { title: 'Ders Kayıt', subtitle: 'Ders kaydı yap', icon: 'mdi-book-plus', color: '#1565C0', to: '/courses' },
   { title: 'Transkript', subtitle: 'Notlarını gör', icon: 'mdi-file-document', color: '#00897B', to: '/transcript' },
   { title: 'Harç Öde', subtitle: 'Harç ödeme', icon: 'mdi-wallet', color: '#F4511E', to: '/fees' },
-  { title: 'Devamsızlıklar', subtitle: 'Derslerin Devamzızlık Sayısı', icon: 'mdi-account-tie', color: '#7B1FA2', to: '/attendance' },
+  { title: 'Devamsızlıklar', subtitle: 'Derslerin Devamsızlık Sayısı', icon: 'mdi-account-check', color: '#7B1FA2', to: '/attendance' },
 ]
 </script>
 
@@ -58,7 +58,9 @@ const quickActions = [
               </p>
             </div>
             <div class="d-none d-md-block">
-              <v-img src="https://img.icons8.com/3d-fluency/188/student-male--v2.png" width="100" height="100" />
+              <v-avatar color="primary" size="80">
+                <v-icon size="48" color="white">mdi-school</v-icon>
+              </v-avatar>
             </div>
           </div>
         </v-card>
