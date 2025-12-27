@@ -11,6 +11,18 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.3s ease;
+
+  /* Scrollbar colors - Light mode defaults */
+  --scrollbar-track: rgba(0, 0, 0, 0.05);
+  --scrollbar-thumb: rgba(21, 101, 192, 0.3);
+  --scrollbar-thumb-hover: rgba(21, 101, 192, 0.5);
+}
+
+/* Dark mode scrollbar colors */
+html.v-theme--dark {
+  --scrollbar-track: rgba(255, 255, 255, 0.08);
+  --scrollbar-thumb: rgba(144, 202, 249, 0.4);
+  --scrollbar-thumb-hover: rgba(144, 202, 249, 0.6);
 }
 
 * {
@@ -31,16 +43,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.05);
+  background: var(--scrollbar-track);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(21, 101, 192, 0.3);
+  background: var(--scrollbar-thumb);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(21, 101, 192, 0.5);
+  background: var(--scrollbar-thumb-hover);
 }
 
 /* Animations */

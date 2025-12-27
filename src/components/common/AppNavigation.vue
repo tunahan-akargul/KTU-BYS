@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 import { useDisplay } from 'vuetify'
+import { useRoute } from 'vue-router'
 import { navigationItems } from '@/mock/navigationItemMock'
 import ktuLogo from '@/assets/Photos/ktu-logo.png'
 
@@ -13,7 +14,14 @@ const emit = defineEmits<{
 }>()
 
 const { mdAndDown } = useDisplay()
+const route = useRoute()
 const rail = ref(false)
+
+// Check if any child of a parent item is currently active
+const isChildActive = (item: typeof navigationItems[0]) => {
+  if (!item.children) return false
+  return item.children.some(child => route.path === child.to)
+}
 
 // Close drawer on small screens after navigation
 watch(mdAndDown, (isMobileOrTablet) => {
@@ -71,6 +79,7 @@ watch(mdAndDown, (isMobileOrTablet) => {
             :prepend-icon="item.icon" 
             :title="item.title" 
             class="nav-item"
+            :class="{ 'nav-item--child-active': isChildActive(item) }"
             @click="rail = false"
           >
             <v-tooltip activator="parent" location="right">{{ item.title }}</v-tooltip>
@@ -142,6 +151,15 @@ watch(mdAndDown, (isMobileOrTablet) => {
 
 .nav-item:hover {
   background: rgba(var(--v-theme-primary), 0.08);
+}
+
+.nav-item--child-active {
+  background: linear-gradient(135deg, rgba(var(--v-theme-primary), 0.15) 0%, rgba(var(--v-theme-secondary), 0.1) 100%) !important;
+  color: rgb(var(--v-theme-primary)) !important;
+}
+
+.nav-item--child-active :deep(.v-icon) {
+  color: rgb(var(--v-theme-primary)) !important;
 }
 
 .nav-child-item {
