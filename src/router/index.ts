@@ -231,7 +231,7 @@ const routes: RouteRecordRaw[] = [
 ]
 
 const router = createRouter({
-    history: createWebHistory(),
+    createWebHashHistory(import.meta.env.BASE_URL),
     routes,
 })
 
